@@ -7,6 +7,12 @@ Open : http://127.0.0.1:8000/docs
 On first start the PDF is loaded, chunked and embedded into chroma_oracle_db.
 Later starts reuse the stored chunks.
 
+test query for /search: 
+{
+  "query": "What does the paper say about unsupervised pre training ? ",
+  "top_k": 5
+}
+
 '''
 
 import os
