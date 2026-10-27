@@ -108,7 +108,7 @@ FAISS_INDEX_PATH = "./faiss_index"
 # query_expansion.py both read from this exact path, so if you
 # change it here, update it in both of those files too.
 
-CHUNK_SIZE = 700
+CHUNK_SIZE = 600
 # Target size of each chunk, in characters. Small enough that each
 # chunk stays focused on one idea (e.g. one table or one paragraph
 # of commentary), large enough to keep useful context together.
