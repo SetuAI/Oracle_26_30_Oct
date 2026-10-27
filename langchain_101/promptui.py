@@ -1,6 +1,9 @@
 '''
 Prompt Template : 
 
+pip install streamlit
+to execute : streamlit run langchain_101/promptui.py
+
 '''
 
 # prompt template : 
@@ -47,7 +50,7 @@ template = PromptTemplate(
     input_variables = ["paper_input","style_input","length_input"]
 )
 
-prompt = template.invoke({
+template_output = template.invoke({
     'paper_input' : paper_input,
     'style_input' : style_input,
     'length_input' : length_input
@@ -55,6 +58,6 @@ prompt = template.invoke({
 
 # invoke the model
 if st.button("Summarize"):
-    result = model.invoke(prompt)
+    result = model.invoke(template_output)
     st.write(result.content)
 
