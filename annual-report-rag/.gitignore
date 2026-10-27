@@ -1,0 +1,11 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+
+# Large data: source PDFs exceed GitHub 100MB limit; vector store is rebuilt by run_ingestion.py
+data/raw/
+data/chroma/
