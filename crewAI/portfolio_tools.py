@@ -1,6 +1,6 @@
 """
 ==============================================================================
-FILE        : tools.py
+FILE        : portfolio_tools.py
 PROJECT     : Portfolio X-Ray Crew (CrewAI + yfinance teaching project)
 ==============================================================================
 
@@ -47,7 +47,7 @@ KEY TERMS (explained simply)
 
 HOW TO RUN (quick self-test, no OpenAI key needed, needs internet)
 ------------------------------------------------------------------
-    python tools.py
+    python portfolio_tools.py
 
 EXPECTED OUTPUT
 ---------------
@@ -236,7 +236,7 @@ class PortfolioRiskTool(BaseTool):
 
 
 # =============================================================================
-# SELF-TEST: run "python tools.py" (needs internet, no OpenAI key)
+# SELF-TEST: run "python portfolio_tools.py" (needs internet, no OpenAI key)
 # =============================================================================
 if __name__ == "__main__":  # Only runs when this file is executed directly, not when crew.py imports it
     sample = ["HDFCBANK.NS", "ICICIBANK.NS", "KOTAKBANK.NS", "TCS.NS", "INFY.NS"]  # The same portfolio crew.py uses

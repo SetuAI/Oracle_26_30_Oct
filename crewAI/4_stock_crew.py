@@ -51,7 +51,7 @@ from pathlib import Path  # Builds file paths that work on Mac, Windows and Linu
 from crewai import LLM, Agent, Crew, Process, Task  # The 5 CrewAI building blocks: model, worker, team, run order, job
 from dotenv import load_dotenv  # Loads the key=value lines from the .env file into environment variables
 
-from tools import PortfolioRiskTool, StockFundamentalsTool  # Our two custom tools from tools.py
+from portfolio_tools import PortfolioRiskTool, StockFundamentalsTool  # Our two custom tools from portfolio_tools.py
 
 # ---------------------------------------------------------------- SETUP -----
 load_dotenv()  # Read .env so OPENAI_API_KEY is available; CrewAI picks it up automatically
@@ -160,7 +160,7 @@ report_task = Task(
     expected_output="A Markdown report under 450 words with the five sections above and the closing line.",
     agent=report_writer,  # Agent 3 does this task
     context=[fundamentals_task, risk_task],  # Needs both earlier outputs
-    output_file=str(OUTPUT_DIR / "portfolio_xray_report.md"),  # CrewAI saves this task's answer here
+    output_file="output/portfolio_xray_report.md",  # Relative path: CrewAI turns absolute paths into relative ones
 )
 
 
