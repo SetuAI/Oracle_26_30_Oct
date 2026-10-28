@@ -129,7 +129,7 @@ def load_vector_store(index_path: str) -> FAISS:
     )
 
     console.print(f"FAISS index loaded from {index_path}")
-    console.print(f"Vectors in index: {vector_store.index.ntotal}")
+    console.print(f"Chunks in index: {vector_store.index.ntotal}")
     return vector_store
 
 

@@ -1,12 +1,11 @@
+-
+
 ![1784203357338](image/notes/1784203357338.png)
 
-
-**Queries to test :** 
+**Queries to test :**
 
 1. **What was the EBITDA in Q2 ? (non ambiguity)**
 2. **"How much profit did the company keep after tax in Q2?" (using ambiguity)**
-
-
 
 ### First: "6 searches" has nothing to do with k=6 — that's a coincidence
 
@@ -39,8 +38,6 @@ That's the whole rule. It's just checking "have I already collected this exact p
 
 Add it up:  **6 + 0 + 1 + 0 + 1 + 0 = 8 unique books ended up on the table** , out of 36 total book-fetches across all 6 trips (6 people × 6 books each). That's exactly your line: *"Merged result: 8 unique chunk(s) after deduplication across 6 queries."* Those 8 chunks are what actually got handed to GPT-4o to write the final answer — the other 28 fetches were just the same content being re-found and thrown away.
 
-
-
 ### What each file actually is
 
 | File                             | What it does                                                                                                                                                                                                                | Do you run it?                                                                                                                                                                                                  |
@@ -51,9 +48,7 @@ Add it up:  **6 + 0 + 1 + 0 + 1 + 0 = 8 unique books ended up on the table** , o
 | **`reranker.py`**        | Retrieves chunks for one query (plain search, no expansion) → shows you<br />**BEFORE**(original order) → shows you<br />**AFTER**(reranked with scores) → generates and prints the **final answer** . | **Yes — run this one.**                                                                                                                                                                                  |
 | **`query_expansion.py`** | The full pipeline: expand your question into 6 phrasings → search 6 times → merge/dedupe → rerank → generate the final answer.                                                                                          | Yes — run this too, but as your "everything together" demo.                                                                                                                                                    |
 
-
-
-### My suggested run order : 
+### My suggested run order :
 
 1. `python ingest.py` — once, before the session even starts, so you're not waiting on it live.
 2. `python reranker.py` — **this is your before/after reranking demo.** Clean, isolated, shows exactly what you asked for.
