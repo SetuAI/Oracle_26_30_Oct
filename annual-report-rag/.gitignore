@@ -6,6 +6,5 @@ __pycache__/
 .DS_Store
 
 
-# Large data: source PDFs exceed GitHub 100MB limit; vector store is rebuilt by run_ingestion.py
-data/raw/
+# Source PDFs in data/raw/ are tracked with Git LFS; vector store is rebuilt by run_ingestion.py
 data/chroma/
