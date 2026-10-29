@@ -342,8 +342,8 @@ def run(question: str, company: str) -> None:
 # The default question is a comparison, deliberately. A single-year lookup would
 # exercise retrieval and generation but would say nothing about the thing this
 # project is built for.
-DEFAULT_QUESTION = "How did the company's disclosure of currency risk change between the two years?"
-DEFAULT_COMPANY = "Infosys"
+DEFAULT_QUESTION = "How did the company's profitability perform across both FYs ? "
+DEFAULT_COMPANY = "Eternal"
 
 
 if __name__ == "__main__":
