@@ -49,21 +49,28 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.types import interrupt, Command
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import SystemMessage, HumanMessage
+from dotenv import load_dotenv
 
 import guardrails
-from retrieval import build_vectorstore, make_retriever
+from retrieval import ROOT_ENV, build_vectorstore, make_retriever
+
+# Load OPENAI_API_KEY (and optional LLM_MODEL) from the repo root .env before
+# anything reads them.
+load_dotenv(override=True)
 
 COMPANY = "Nimbus Renewables"
 
-# Chat model name; override with OLLAMA_MODEL. qwen3:8b is a strong small tool-use
-# model; qwen3:30b-a3b is the sweet spot if the machine has 16-24 GB.
-CHAT_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:1.7b")
+# Chat model name; override with LLM_MODEL.
+CHAT_MODEL = os.getenv("LLM_MODEL", "gpt-4o")
+# add the openai api key 
+
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 
 
 def get_llm():
-    """Real Ollama chat client, imported lazily so tests can inject a fake."""
-    from langchain_ollama import ChatOllama
-    return ChatOllama(model=CHAT_MODEL, temperature=0)
+    """Real OpenAI chat client, imported lazily so tests can inject a fake."""
+    from langchain_openai import ChatOpenAI
+    return ChatOpenAI(model=CHAT_MODEL, temperature=0)
 
 
 # ===========================================================================

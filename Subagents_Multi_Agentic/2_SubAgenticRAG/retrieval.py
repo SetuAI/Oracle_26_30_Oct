@@ -7,7 +7,7 @@ The RAG plumbing, kept separate from the agent logic.
 Its job is small and self-contained:
   1. read the four quarterly transcripts from data/,
   2. split them into chunks,
-  3. embed the chunks with a local Ollama embedding model,
+  3. embed the chunks with an OpenAI embedding model,
   4. hand back a `retrieve(query, k)` function the sub-agents can call.
 
 Each sub-agent in subagentic_rag.py calls `retrieve` with its OWN query, scoped
@@ -15,7 +15,7 @@ to its specialty. That is what makes this a *sub-agentic RAG* rather than a plai
 RAG: retrieval happens inside each specialist, not once up front.
 
 The embeddings object is passed in (dependency injection) so the same code can run
-with real Ollama embeddings in production and a fake one in offline tests.
+with real OpenAI embeddings in production and a fake one in offline tests.
 """
 
 from __future__ import annotations
@@ -30,16 +30,21 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 DATA_DIR = Path(__file__).parent / "data"
 
-# Embedding model name; override with OLLAMA_EMBED_MODEL. nomic-embed-text is the
-# reliable local default for RAG.
-EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+# The Oracle repo root .env, which holds OPENAI_API_KEY for every project.
+ROOT_ENV = Path(__file__).resolve().parents[2] / ".env"
+
+# Embedding model name; override with EMBED_MODEL. text-embedding-3-small is a
+# cheap, strong default for RAG.
+EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")
 
 
 def get_embeddings():
-    """Return a real Ollama embeddings client. Imported lazily so the module can be
-    imported (and tested with a fake) even on a machine without Ollama installed."""
-    from langchain_ollama import OllamaEmbeddings
-    return OllamaEmbeddings(model=EMBED_MODEL)
+    """Return a real OpenAI embeddings client. Imported lazily so the module can be
+    imported (and tested with a fake) even without an OPENAI_API_KEY set."""
+    from dotenv import load_dotenv
+    from langchain_openai import OpenAIEmbeddings
+    load_dotenv(ROOT_ENV, override=True)  # pick up OPENAI_API_KEY from the repo root .env
+    return OpenAIEmbeddings(model=EMBED_MODEL)
 
 
 def _load_chunks() -> list[Document]:
